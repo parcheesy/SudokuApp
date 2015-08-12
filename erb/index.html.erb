@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sudoku</title>
+  <link rel="stylesheet" href="sudoku.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="sudoku.js"></script>
+</head>
+<body>
+  <h1>Sudoku</h1>   
+  <table>
+    <% @puzzle.puzzle.each_with_index do |entry, i| %>
+    <% if i%9==0  %>
+    <tr>
+    <% end %>
+      <td><input id="space-<%=i%>" type="text" name="entry<%=i%>" value="<%=entry=="." ? "" : entry %>"></input></td>
+    <% if i%9==8  %>
+    </tr>
+    <% end %>
+    <% end %>
+  </table>
+  <div class="flex-center">
+    <button id="new">New Puzzle</button>
+    <button id="helper" class="off">Turn Helper On</button>
+    <button id="check">Check Puzzle</button>
+    <button id="submit">Submit Puzzle</button>
+  </div>
+  <p id="alert">Test</p>
+</body>
+
+
+
+
+
+
+
+</html>
