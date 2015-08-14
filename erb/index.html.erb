@@ -20,12 +20,25 @@
     <% end %>
     <% end %>
   </table>
+
+  <div class="flex-center">
+    <p>Difficulty Level:</p>
+    <select id="difficulty">
+      <option value="veryeasy">Very Easy</option>
+      <option value="easy">Easy</option>
+      <option selected="selected" value="medium">Medium</option>
+      <option value="hard">Hard</option>
+      <option value="veryhard">Very Hard</option>
+    </select>
+  </div>
+
   <div class="flex-center">
     <button id="new">New Puzzle</button>
     <button id="helper" class="off">Turn Helper On</button>
     <button id="check">Check Puzzle</button>
     <button id="submit">Submit Puzzle</button>
   </div>
+
   <p id="alert">Test</p>
 </body>
 

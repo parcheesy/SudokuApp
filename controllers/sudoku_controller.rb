@@ -21,11 +21,11 @@ class SudokuController
       blanks = rand(49..51)
     when "hard"
       blanks = rand(52..54)
-    when "very hard"
+    when "veryhard"
       blanks = rand(55..57)
     when "easy"
       blanks = rand(45..48)
-    when "very easy"
+    when "veryeasy"
       blanks = rand(40..44)
     end
     c = Sudoku.make(blanks)
@@ -51,11 +51,11 @@ class SudokuController
       blanks = rand(49..51)
     when "hard"
       blanks = rand(52..54)
-    when "very hard"
+    when "veryhard"
       blanks = rand(55..57)
     when "easy"
       blanks = rand(45..48)
-    when "very easy"
+    when "veryeasy"
       blanks = rand(40..44)
     end
     c = Sudoku.make(blanks)

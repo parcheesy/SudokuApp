@@ -1,29 +1,65 @@
-// Custom Javascript for Sudoku Web App
+//// Custom Javascript for Sudoku Web App
 
+
+// PUZZLE FUNCTION
+// Makes ajax call for new function
+// based on chosen difficulty level.
+var create_puzzle = function() {
+  clear_message();
+  var difficulty = $("#difficulty").val();
+  var uri = "json/new?difficulty=" + difficulty;
+  var new_puzzle;
+  $.ajax(uri, {
+    success: function(response) {
+     new_puzzle = response.puzzle; 
+     $.each(new_puzzle, function(index, value) {
+       var spot = "#space-" + index;
+       var entry;
+       if (value==".") {
+         entry = "";
+       } else {
+         entry = value;
+       }
+       $(spot).val(entry);
+     });
+    },
+    error: function(request, errorType, errorMessage) {
+      alert('Error: ' + errorType + ' with message: ' + errorMessage);
+    },
+    beforeSend: ajax_loading,
+    complete: function() {
+      end_ajax_loading();
+      clear_color();
+    }
+  });
+};
+// LOADING FUNCTIONS
+// Used in beforeSend and complete options
+// of ajax calls that take extended period 
+// of time.
+var ajax_loading = function() {
+  $("#alert").text("Loading...").show();
+};
+var end_ajax_loading = function() {
+  $("#alert").hide();
+};
+
+// CLEAR ALERT
+// Function for clearing alert message
+var clear_message = function() {
+  $("#alert").removeClass().hide();
+};
+
+// CLEAR COLOR
+// function for clearing color from puzzle
+var clear_color = function() {
+  $("input").removeClass();
+}
+
+
+
+// Active Javascript
 $(document).ready(function() {
-  // LOADING FUNCTIONS
-  // Used in beforeSend and complete options
-  // of ajax calls that take extended period 
-  // of time.
-  var ajax_loading = function() {
-    $("#alert").text("Loading...").show();
-  };
-  var end_ajax_loading = function() {
-    $("#alert").hide();
-  };
-
-  // CLEAR ALERT
-  // Function for clearing alert message
-  var clear_message = function() {
-    $("#alert").removeClass().hide();
-  };
-
-  // CLEAR COLOR
-  // function for clearing color from puzzle
-  var clear_color = function() {
-    $("input").removeClass();
-  }
-
 
   // HELPER
   // Ajax call when sudoku entry is changed
@@ -112,35 +148,12 @@ $(document).ready(function() {
 
   // NEW PUZZLE
   // Button for loading new puzzle with ajax
-  $("#new").click(function() {
-    clear_message();
-    var uri = "json/new";
-    var new_puzzle;
-    $.ajax(uri, {
-      success: function(response) {
-       new_puzzle = response.puzzle; 
-       $.each(new_puzzle, function(index, value) {
-         var spot = "#space-" + index;
-         var entry;
-         if (value==".") {
-           entry = "";
-         } else {
-           entry = value;
-         }
-         $(spot).val(entry);
-       });
-      },
-      error: function(request, errorType, errorMessage) {
-        alert('Error: ' + errorType + ' with message: ' + errorMessage);
-      },
-      beforeSend: ajax_loading,
-      complete: function() {
-        end_ajax_loading();
-        clear_color();
-      }
-    });
-  });
+  $("#new").click(create_puzzle);
 
+  // SELECT DIFFICULTY
+  // Loads new puzzle when difficulty changes
+  $('#difficulty').change(create_puzzle);
+  
   // CHECK PUZZLE
   // Button for checking current puzzle and
   // marking correct and wrong entries
